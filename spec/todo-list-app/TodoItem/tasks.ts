@@ -1,11 +1,30 @@
 import { contain, Ensure } from '@serenity-js/assertions';
-import { Answerable, Check, d, Task, Wait } from '@serenity-js/core';
-import { Clear, Click, DoubleClick, Enter, Hover, Key, PageElement, Press } from '@serenity-js/web';
+import { Answerable, Check, d, Duration, Task, Wait } from '@serenity-js/core';
+import { Clear, Click, DoubleClick, Enter, Hover, isVisible, Key, PageElement, Press } from '@serenity-js/web';
 
-import { newTodoInput } from '../TodoApp';
+import { newTodoInput, shopYoga, yogaShortColor, yogaShortLink, yogaShortSize, cartCount, shoppingCart, addToCartButton, proceedToCheckoutButton } from '../TodoApp';
 import { itemNames } from '../TodoList';
 import { isDisplayedAsCompleted, isDisplayedAsOutstanding } from './expectations';
 import { destroyButton, editor, label, toggleButton } from './questions';
+
+export const addYogaShortToShoppingCart = (): Task =>
+    Task.where(`#actor add yoga short to shopping cart`,
+        Click.on(shopYoga()),
+        Click.on(yogaShortLink()),
+        Click.on(yogaShortSize()),
+        Click.on(yogaShortColor()),
+        Click.on(addToCartButton()),
+        //Wait.until(cartCount(), isVisible()),
+        Wait.for(Duration.ofSeconds(3)),
+        
+    )
+
+export const checkout = (): Task =>
+    Task.where(`#actor checkout`,
+        Click.on(shoppingCart()),
+        Click.on(proceedToCheckoutButton()),
+        
+    )
 
 export const recordItem = (name: Answerable<string>): Task =>
     Task.where(d `#actor records an item called ${ name }`,

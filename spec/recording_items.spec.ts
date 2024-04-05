@@ -14,8 +14,10 @@ import {
     startWithAListContaining,
     startWithAnEmptyList,
 } from './todo-list-app/TodoApp';
-import { recordItem } from './todo-list-app/TodoItem';
-import { itemNames } from './todo-list-app/TodoList';
+import { recordItem, remove } from './todo-list-app/TodoItem';
+import { itemCalled, itemNames } from './todo-list-app/TodoList';
+import { Debug, Wait } from '@serenity-js/core';
+import { PlaywrightPage } from '@serenity-js/playwright';
 
 describe('Recording items', () => {
 
@@ -32,6 +34,47 @@ describe('Recording items', () => {
     // });
 
     describe('Todo List App', () => {
+
+        it('should allow me to add a todo item', async ({ actor }) => {
+            await actor.attemptsTo(
+                startWithAnEmptyList(),
+    
+                recordItem('Buy cake'),
+                recordItem('Buy milk'),
+    
+                Ensure.that(itemNames(), equals([
+                    'Buy cake', 'Buy milk'
+                ])),
+
+                Ensure.that(itemNames().length, equals(2)),
+
+                Debug.values(
+                    (results, page) => {
+                        // set breakpoint on the line below
+                       // page.locator('li.todo')
+                    },
+                    PlaywrightPage.current().nativePage(),
+                )
+            )
+        })
+
+        it('should allow me to remove a todo item', async ({ actor }) => {
+            await actor.attemptsTo(
+                startWithAnEmptyList(),
+    
+                recordItem('Buy cake'),
+                recordItem('Buy milk'),
+
+                //Wait.until(itemCalled('Buy cake'), isVisible()),
+                remove(itemCalled('Buy cake')),
+
+                Ensure.that(itemNames(), equals([
+                    'Buy milk'
+                ])),
+
+                Ensure.that(itemNames().length, equals(1)),
+            )
+        })
 
         it('should allow me to add todo items', async ({ actor }) => {
             await actor.attemptsTo(

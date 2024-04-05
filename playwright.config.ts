@@ -48,7 +48,7 @@ const config: PlaywrightTestConfig = {
         baseURL: 'https://todo-app.serenity-js.org/',
 
         /* Set headless: false to see the browser window */
-        headless: true,
+        headless: false,
 
         defaultActorName: 'Alice',
         crew: [

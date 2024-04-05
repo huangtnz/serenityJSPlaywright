@@ -39,3 +39,36 @@ export const filterCalled = (name: Answerable<string>) =>
 export const toggleAllButton = () =>
     PageElement.located(By.id('toggle-all'))
         .describedAs('toggle all button');
+
+export const shopYoga = () =>
+    PageElement.located(By.xpath("//span[@class='action more button']"))
+            .describedAs('shop yoga collection');
+
+export const yogaShortLink = () =>
+    PageElement.located(By.xpath("//a[@class='product-item-link'][@href='https://magento.softwaretestingboard.com/echo-fit-compression-short.html']"))
+            .describedAs('yoga short link');
+
+export const yogaShortSize = () =>
+    PageElement.located(By.xpath("//div[@id='option-label-size-143-item-171']"))
+            .describedAs('yoga short size');
+
+export const yogaShortColor = () =>
+    PageElement.located(By.xpath("//div[@option-label='Black']"))
+            .describedAs('yoga short color');
+
+export const addToCartButton = () =>
+    PageElement.located(By.xpath("//button[@title='Add to Cart']"))
+            .describedAs('add to cart button');
+
+export const cartCount = () =>
+    PageElement.located(By.xpath("//span[@class='counter-number']"))
+            .describedAs('cart count number');
+
+export const shoppingCart = () =>
+    PageElement.located(By.xpath("//a[@href='https://magento.softwaretestingboard.com/checkout/cart/'][text()='shopping cart']"))
+            .describedAs('shopping cart link');
+
+export const proceedToCheckoutButton = () =>
+    PageElement.located(By.xpath("//button[@type='button'][@data-role='proceed-to-checkout']"))
+            .describedAs('proceed to checkout');
+

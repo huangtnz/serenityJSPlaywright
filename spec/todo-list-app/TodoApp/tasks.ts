@@ -4,6 +4,11 @@ import { Navigate, Page } from '@serenity-js/web';
 
 import { recordItem } from '../TodoItem/tasks';
 
+export const goToOnlineShop = () =>
+    Task.where(`#actor start online shopping`,
+        Navigate.to('https://magento.softwaretestingboard.com/'),
+
+    );
 export const startWithAnEmptyList = () =>
     Task.where(`#actor starts with an empty todo list`,
         Navigate.to('/'),
